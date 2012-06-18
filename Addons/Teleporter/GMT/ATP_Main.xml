@@ -1,0 +1,25 @@
+﻿<Ui xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:schemaLocation="http://www.blizzard.com/wow/ui/" xmlns="http://www.blizzard.com/wow/ui/">
+	<Frame name="GMT" parent="UIParent" movable="true">
+		<TitleRegion setAllPoints="true">
+			<Size>
+				<AbsDimension x="0" y="30" />
+			</Size>
+			<Anchors>
+				<Anchor point="TOPLEFT" />
+				<Anchor point="TOPRIGHT" />
+			</Anchors>
+		</TitleRegion>
+		<HitRectInsets>
+			<AbsInset left="1" right="1" top="1" bottom="1" />
+		</HitRectInsets>
+		<Scripts>
+			<OnLoad>ATP_OnLoad();
+self:RegisterForDrag("LeftButton");</OnLoad>
+			<OnEvent>
+			ATP_OnEvent(event);
+		</OnEvent>
+			<OnDragStart>self:StartMoving();</OnDragStart>
+			<OnDragStop>self:StopMovingOrSizing();</OnDragStop>
+		</Scripts>
+	</Frame>
+</Ui>

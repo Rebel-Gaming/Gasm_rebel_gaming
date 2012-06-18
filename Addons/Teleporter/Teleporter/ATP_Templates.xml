@@ -1,0 +1,276 @@
+﻿<Ui xmlns="http://www.blizzard.com/wow/ui/"   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"   xsi:schemaLocation="http://www.blizzard.com/wow/ui/">
+
+<Script file="GMT.lua"/>	
+<Script file="ATP_Window.lua"/>
+<Script file="ATP_teleport.lua"/>
+	
+	<Frame name="ATP_MainTemplate" hidden="false" virtual="true">
+		<Backdrop name="$parentBackdrop" bgFile="Interface\TutorialFrame\TutorialFrameBackground" edgeFile="Interface\DialogFrame\UI-DialogBox-Border" tile="true">
+			<EdgeSize>
+				<AbsValue val="16"/>
+			</EdgeSize>
+			<TileSize>
+				<AbsValue val="32"/>
+			</TileSize>
+			<BackgroundInsets>
+				<AbsInset left="5" right="5" top="5" bottom="5"/>
+			</BackgroundInsets>
+		</Backdrop>
+	</Frame>
+	
+	<Frame name="ATP_ToolsWindow" hidden="false" virtual="true">
+	<Backdrop edgeFile="Interface\Tooltips\UI-Tooltip-Border" tile="true">
+		<EdgeSize>
+			<AbsValue val="16"/>
+		</EdgeSize>
+		<TileSize>
+			<AbsValue val="16"/>
+		</TileSize>
+		<BackgroundInsets>
+			<AbsInset left="5" right="5" top="5" bottom="5"/>
+		</BackgroundInsets>
+	</Backdrop>
+	</Frame>
+
+<EditBox name="InputBoxTemp" enableMouse="true" virtual="true">
+		<Layers>
+			<Layer level="BACKGROUND">
+				<Texture name="$parentLeft" file="Interface\Common\Common-Input-Border">
+					<Size>
+						<AbsDimension x="8" y="14"/>
+					</Size>
+					<Anchors>
+						<Anchor point="LEFT">
+							<Offset>
+								<AbsDimension x="-5" y="0"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+					<TexCoords left="0" right="0.0625" top="0" bottom="0.625"/>
+				</Texture>
+				<Texture name="$parentRight" file="Interface\Common\Common-Input-Border">
+					<Size>
+						<AbsDimension x="8" y="14"/>
+					</Size>
+					<Anchors>
+						<Anchor point="RIGHT">
+							<Offset>
+								<AbsDimension x="0" y="0"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+					<TexCoords left="0.9375" right="1.0" top="0" bottom="0.625"/>
+				</Texture>
+				<Texture name="$parentMiddle" file="Interface\Common\Common-Input-Border">
+					<Size>
+						<AbsDimension x="10" y="14"/>
+					</Size>
+					<Anchors>
+						<Anchor point="LEFT" relativeTo="$parentLeft" relativePoint="RIGHT"/>
+						<Anchor point="RIGHT" relativeTo="$parentRight" relativePoint="LEFT"/>
+					</Anchors>
+					<TexCoords left="0.0625" right="0.9375" top="0" bottom="0.625"/>
+				</Texture>
+			</Layer>
+		</Layers>
+		<Scripts>
+			<OnEnterPressed>
+				this:ClearFocus();
+			</OnEnterPressed>
+			<OnEscapePressed>
+				this:ClearFocus();
+			</OnEscapePressed>
+			<OnEditFocusLost>
+				this:HighlightText(0, 0);
+			</OnEditFocusLost>
+			<OnEditFocusGained>
+				this:HighlightText();
+			</OnEditFocusGained>
+		</Scripts>
+		<FontString inherits="ChatFontNormal"/>
+	</EditBox>
+	
+	<Button name="ATP_zonelist_line_template" virtual="true">
+		<Size>
+			<AbsDimension x="155" y="14"/>
+		</Size>
+		<Layers>
+			<Layer level="BORDER">
+				<FontString name="$parentName" inherits="ATP_Font" justifyH="LEFT">
+					<Size>
+						<AbsDimension x="120" y="14"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset>
+								<AbsDimension x="10" y="0"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+							
+			</Layer>
+		</Layers>
+		<Scripts>
+			<OnLoad>
+				this:RegisterForClicks("LeftButtonUp");
+			</OnLoad>
+			<OnClick>
+				ATP_zonename_OnClick(arg1);
+				
+			</OnClick>
+		</Scripts>
+		<HighlightTexture file="Interface\QuestFrame\UI-QuestTitleHighlight" alphaMode="ADD">
+			<Size>
+				<AbsDimension x="120" y="14"/>
+			</Size>
+			<Anchors>
+				<Anchor point="TOP">
+					<Offset>
+						<AbsDimension x="3" y="-2"/>
+					</Offset>
+				</Anchor>
+			</Anchors>
+		</HighlightTexture>
+	</Button>
+	
+		<Button name="ATP_arealist_line_template" virtual="true">
+		<Size>
+			<AbsDimension x="245" y="14"/>
+		</Size>
+		<Layers>
+			<Layer level="BORDER">
+				<FontString name="$parentName" inherits="ATP_Font" justifyH="LEFT">
+					<Size>
+						<AbsDimension x="210" y="14"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset>
+								<AbsDimension x="10" y="0"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+							
+			</Layer>
+		</Layers>
+		<Scripts>
+			<OnLoad>
+				this:RegisterForClicks("LeftButtonUp");
+			</OnLoad>
+			<OnClick>
+				ATP_areaname_OnClick(arg1);
+			</OnClick>
+			<OnDoubleClick>
+				<!--ATP_areaname_OnClick(arg1);-->
+				ATP_teleportgo_click();
+			</OnDoubleClick>
+		</Scripts>
+		<HighlightTexture file="Interface\QuestFrame\UI-QuestTitleHighlight" alphaMode="ADD">
+			<Size>
+				<AbsDimension x="215" y="14"/>
+			</Size>
+			<Anchors>
+				<Anchor point="TOP">
+					<Offset>
+						<AbsDimension x="3" y="-2"/>
+					</Offset>
+				</Anchor>
+			</Anchors>
+		</HighlightTexture>
+	</Button>
+	
+	<Button name="ATP_zonesearchlist_line_template" virtual="true">
+		<Size>
+			<AbsDimension x="155" y="14"/>
+		</Size>
+		<Layers>
+			<Layer level="BORDER">
+				<FontString name="$parentName" inherits="ATP_Font" justifyH="LEFT">
+					<Size>
+						<AbsDimension x="120" y="14"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset>
+								<AbsDimension x="10" y="0"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+							
+			</Layer>
+		</Layers>
+		<Scripts>
+			<OnLoad>
+				this:RegisterForClicks("LeftButtonUp");
+			</OnLoad>
+			<OnClick>
+				ATP_zonesearchname_OnClick(arg1);
+				
+			</OnClick>
+		</Scripts>
+		<HighlightTexture file="Interface\QuestFrame\UI-QuestTitleHighlight" alphaMode="ADD">
+			<Size>
+				<AbsDimension x="120" y="14"/>
+			</Size>
+			<Anchors>
+				<Anchor point="TOP">
+					<Offset>
+						<AbsDimension x="3" y="-2"/>
+					</Offset>
+				</Anchor>
+			</Anchors>
+		</HighlightTexture>
+	</Button>
+	
+	<Button name="ATP_areasearchlist_line_template" virtual="true">
+		<Size>
+			<AbsDimension x="245" y="14"/>
+		</Size>
+		<Layers>
+			<Layer level="BORDER">
+				<FontString name="$parentName" inherits="ATP_Font" justifyH="LEFT">
+					<Size>
+						<AbsDimension x="210" y="14"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset>
+								<AbsDimension x="10" y="0"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+							
+			</Layer>
+		</Layers>
+		<Scripts>
+			<OnLoad>
+				this:RegisterForClicks("LeftButtonUp");
+			</OnLoad>
+			<OnClick>
+				ATP_areasearchname_OnClick(arg1);
+			</OnClick>
+			<OnDoubleClick>
+				<!--ATP_areasearchname_OnClick(arg1);-->
+				ATP_teleportgo_click();
+			</OnDoubleClick>
+		</Scripts>
+		<HighlightTexture file="Interface\QuestFrame\UI-QuestTitleHighlight" alphaMode="ADD">
+			<Size>
+				<AbsDimension x="215" y="14"/>
+			</Size>
+			<Anchors>
+				<Anchor point="TOP">
+					<Offset>
+						<AbsDimension x="3" y="-2"/>
+					</Offset>
+				</Anchor>
+			</Anchors>
+		</HighlightTexture>
+	</Button>
+	
+	
+</Ui>

@@ -1,0 +1,639 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/"   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"   xsi:schemaLocation="http://www.blizzard.com/wow/ui/">
+
+	<Frame name="ATP_window" inherits="ATP_MainTemplate" hidden="true" enableMouse="true" movable="true" parent="UIParent">
+		<Size>
+			<AbsDimension x="410" y="177"/>
+		</Size>
+		<Anchors>
+			<Anchor point="TOPLEFT" relativeTo="UIParent">
+				<Offset>
+					<AbsDimension x="10" y="-300"/>
+				</Offset>
+			</Anchor>
+		</Anchors>		
+		<Layers>
+			<Layer level="BACKGROUND">
+
+				<FontString name="$parent_zone_title" inherits="ATP_YellowFont" text="zone">
+					<Anchors>
+						<Anchor point="TOPLEFT" relativeTo="ATP_window">
+							<Offset>
+								<AbsDimension x="8" y="-4"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>									
+		
+				<FontString name="$parent_ATP_title" inherits="ATP_YellowFont" text="area">
+					<Anchors>
+						<Anchor point="LEFT" relativeTo="$parent_zone_title" relativePoint="RIGHT">
+							<Offset>
+								<AbsDimension x="122" y="0"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>		
+						
+				<FontString name="$parent_ATP_searchtitle" inherits="ATP_YellowFont" text="search:">
+					<Anchors>
+						<Anchor point="TOPLEFT" relativeTo="ATP_window">
+							<Offset>
+								<AbsDimension x="8" y="-153"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+			</Layer>
+		</Layers>
+		<Frames>
+		
+			<Button name="$parent_Close_button" inherits="UIPanelCloseButton">
+				<Size>
+					<AbsDimension x="20" y="20"/>
+				</Size>
+				<Anchors>
+						<Anchor point="TOPRIGHT" >
+							<Offset>
+								<AbsDimension x="-2" y="-2"/>
+							</Offset>
+						</Anchor>
+				</Anchors>
+			</Button>
+			
+			<Button name="$parent_teleport_button" inherits="UIPanelButtonTemplate" text="teleport" id="1">
+				<NormalText inherits="ATP_ButtonFont"/>
+				<HighlightText inherits="ATP_ButtonFont"/>
+				<DisabledText inherits="ATP_ButtonFont"/>
+				<Size>
+					<AbsDimension x="60" y="18"/>
+				</Size>
+				<Anchors>
+					<Anchor point="BOTTOMRIGHT" relativeTo="ATP_window" relativePoint="BOTTOMRIGHT">
+						<Offset>
+					<AbsDimension x="-7" y="8"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnLoad>
+					</OnLoad>
+					<OnClick>
+						ATP_window_searchfor:ClearFocus();
+						ATP_teleportgo_click();
+					</OnClick>
+				</Scripts>
+			</Button>
+			
+			<Button name="$parent_list_button" inherits="UIPanelButtonTemplate" text="list" id="1">
+				<NormalText inherits="ATP_ButtonFont"/>
+				<HighlightText inherits="ATP_ButtonFont"/>
+				<DisabledText inherits="ATP_ButtonFont"/>
+				<Size>
+					<AbsDimension x="50" y="18"/>
+				</Size>
+				<Anchors>
+					<Anchor point="RIGHT" relativeTo="$parent_teleport_button" relativePoint="LEFT">
+						<Offset>
+					<AbsDimension x="-1" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnLoad>
+					</OnLoad>
+					<OnClick>
+						ATP_window_searchfor:ClearFocus();
+						ATP_mainlist_click();
+					</OnClick>
+				</Scripts>
+			</Button>
+
+
+			<Button name="$parent_search_button" inherits="UIPanelButtonTemplate" text="search" id="1">
+				<NormalText inherits="ATP_ButtonFont"/>
+				<HighlightText inherits="ATP_ButtonFont"/>
+				<DisabledText inherits="ATP_ButtonFont"/>
+				<Size>
+					<AbsDimension x="55" y="18"/>
+				</Size>
+				<Anchors>
+					<Anchor point="RIGHT" relativeTo="$parent_list_button" relativePoint="LEFT">
+						<Offset>
+					<AbsDimension x="-1" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnLoad>
+					</OnLoad>
+					<OnClick>
+						ATP_window_searchfor:ClearFocus();
+						ATP_teleportsearch_click();
+					</OnClick>
+				</Scripts>
+			</Button>
+			
+			<EditBox name="$parent_searchfor" inherits="InputBoxTemp" letters="25" autoFocus="false" id="55">
+				<Size>
+					<AbsDimension x="170" y="16"/>
+				</Size>
+				<Anchors>
+					<Anchor point="RIGHT" relativeTo="$parent_search_button" relativePoint="LEFT">
+						<Offset>
+							<AbsDimension x="-3" y="-1"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnEnterPressed>
+						ATP_window_searchfor:ClearFocus();
+						ATP_teleportsearch_click();
+					</OnEnterPressed>
+					<OnTextChanged>
+						ATP_searchfortp = ATP_window_searchfor:GetText()
+					</OnTextChanged>
+				</Scripts>
+				<FontString inherits="ATP_Font"/>
+			</EditBox>
+
+			<Frame name="ATP_zone_window" inherits="ATP_ToolsWindow" hidden="false" enableMouse="true" movable="false" parent="ATP_window">
+				<Size>
+				<AbsDimension x="155" y="137"/>
+				</Size>
+				<Anchors>
+					<Anchor point="TOPLEFT" relativeTo="ATP_window" relativePoint="TOPLEFT">
+						<Offset>
+							<AbsDimension x="4" y="-16"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+
+				<Frames>					
+					<Button name="ATP_zonelist_line1" inherits="ATP_zonelist_line_template" id="1">
+						<Anchors>
+							<Anchor point="TOPLEFT" relativeTo="ATP_zone_window">
+								<Offset>
+									<AbsDimension x="-5" y="-4"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</Button>
+					<Button name="ATP_zonelist_line2" inherits="ATP_zonelist_line_template" id="2">
+						<Anchors>
+							<Anchor point="TOPLEFT" relativeTo="ATP_zonelist_line1" relativePoint="BOTTOMLEFT">
+								<Offset>
+									<AbsDimension x="0" y="0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</Button>
+					<Button name="ATP_zonelist_line3" inherits="ATP_zonelist_line_template" id="3">
+						<Anchors>
+							<Anchor point="TOPLEFT" relativeTo="ATP_zonelist_line2" relativePoint="BOTTOMLEFT">
+								<Offset>
+									<AbsDimension x="0" y="0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</Button>
+					<Button name="ATP_zonelist_line4" inherits="ATP_zonelist_line_template" id="4">
+						<Anchors>
+							<Anchor point="TOPLEFT" relativeTo="ATP_zonelist_line3" relativePoint="BOTTOMLEFT">
+								<Offset>
+									<AbsDimension x="0" y="0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</Button>
+					<Button name="ATP_zonelist_line5" inherits="ATP_zonelist_line_template" id="5">
+						<Anchors>
+							<Anchor point="TOPLEFT" relativeTo="ATP_zonelist_line4" relativePoint="BOTTOMLEFT">
+								<Offset>
+									<AbsDimension x="0" y="0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</Button>
+					<Button name="ATP_zonelist_line6" inherits="ATP_zonelist_line_template" id="6">
+						<Anchors>
+							<Anchor point="TOPLEFT" relativeTo="ATP_zonelist_line5" relativePoint="BOTTOMLEFT">
+								<Offset>
+									<AbsDimension x="0" y="0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</Button>
+					<Button name="ATP_zonelist_line7" inherits="ATP_zonelist_line_template" id="7">
+						<Anchors>
+							<Anchor point="TOPLEFT" relativeTo="ATP_zonelist_line6" relativePoint="BOTTOMLEFT">
+								<Offset>
+									<AbsDimension x="0" y="0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</Button>
+					<Button name="ATP_zonelist_line8" inherits="ATP_zonelist_line_template" id="8">
+						<Anchors>
+							<Anchor point="TOPLEFT" relativeTo="ATP_zonelist_line7" relativePoint="BOTTOMLEFT">
+								<Offset>
+									<AbsDimension x="0" y="0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</Button>
+					<Button name="ATP_zonelist_line9" inherits="ATP_zonelist_line_template" id="9">
+						<Anchors>
+							<Anchor point="TOPLEFT" relativeTo="ATP_zonelist_line8" relativePoint="BOTTOMLEFT">
+								<Offset>
+									<AbsDimension x="0" y="0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</Button>				
+					
+					<ScrollFrame name="ATP_zonelist_ScrollFrame" inherits="FauxScrollFrameTemplate">
+					<Size>
+						<AbsDimension x="130" y="124"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT" relativeTo="ATP_zone_window">
+							<Offset>
+								<AbsDimension x="-3" y="-7"/>
+							</Offset>
+						</Anchor>
+
+					</Anchors>
+					<Scripts>
+						<OnVerticalScroll>
+							FauxScrollFrame_OnVerticalScroll(self, offset, 12, ATP_zonelist_Update);
+						</OnVerticalScroll>
+					</Scripts>
+				</ScrollFrame>		
+			</Frames>
+		</Frame>
+		
+		<Frame name="ATP_area_window" inherits="ATP_ToolsWindow" hidden="false" enableMouse="true" movable="false" parent="ATP_window">
+				<Size>
+				<AbsDimension x="245" y="137"/>
+				</Size>
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="ATP_zone_window" relativePoint="RIGHT">
+						<Offset>
+							<AbsDimension x="0" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+			
+			
+			<Frames>					
+					<Button name="ATP_arealist_line1" inherits="ATP_arealist_line_template" id="1">
+						<Anchors>
+							<Anchor point="TOPLEFT" relativeTo="ATP_area_window">
+								<Offset>
+									<AbsDimension x="-5" y="-4"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</Button>
+					<Button name="ATP_arealist_line2" inherits="ATP_arealist_line_template" id="2">
+						<Anchors>
+							<Anchor point="TOPLEFT" relativeTo="ATP_arealist_line1" relativePoint="BOTTOMLEFT">
+								<Offset>
+									<AbsDimension x="0" y="0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</Button>
+					<Button name="ATP_arealist_line3" inherits="ATP_arealist_line_template" id="3">
+						<Anchors>
+							<Anchor point="TOPLEFT" relativeTo="ATP_arealist_line2" relativePoint="BOTTOMLEFT">
+								<Offset>
+									<AbsDimension x="0" y="0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</Button>
+					<Button name="ATP_arealist_line4" inherits="ATP_arealist_line_template" id="4">
+						<Anchors>
+							<Anchor point="TOPLEFT" relativeTo="ATP_arealist_line3" relativePoint="BOTTOMLEFT">
+								<Offset>
+									<AbsDimension x="0" y="0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</Button>
+					<Button name="ATP_arealist_line5" inherits="ATP_arealist_line_template" id="5">
+						<Anchors>
+							<Anchor point="TOPLEFT" relativeTo="ATP_arealist_line4" relativePoint="BOTTOMLEFT">
+								<Offset>
+									<AbsDimension x="0" y="0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</Button>
+					<Button name="ATP_arealist_line6" inherits="ATP_arealist_line_template" id="6">
+						<Anchors>
+							<Anchor point="TOPLEFT" relativeTo="ATP_arealist_line5" relativePoint="BOTTOMLEFT">
+								<Offset>
+									<AbsDimension x="0" y="0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</Button>
+					<Button name="ATP_arealist_line7" inherits="ATP_arealist_line_template" id="7">
+						<Anchors>
+							<Anchor point="TOPLEFT" relativeTo="ATP_arealist_line6" relativePoint="BOTTOMLEFT">
+								<Offset>
+									<AbsDimension x="0" y="0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</Button>
+					<Button name="ATP_arealist_line8" inherits="ATP_arealist_line_template" id="8">
+						<Anchors>
+							<Anchor point="TOPLEFT" relativeTo="ATP_arealist_line7" relativePoint="BOTTOMLEFT">
+								<Offset>
+									<AbsDimension x="0" y="0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</Button>
+					<Button name="ATP_arealist_line9" inherits="ATP_arealist_line_template" id="9">
+						<Anchors>
+							<Anchor point="TOPLEFT" relativeTo="ATP_arealist_line8" relativePoint="BOTTOMLEFT">
+								<Offset>
+									<AbsDimension x="0" y="0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</Button>				
+					
+					<ScrollFrame name="ATP_arealist_ScrollFrame" inherits="FauxScrollFrameTemplate">
+					<Size>
+						<AbsDimension x="220" y="124"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT" relativeTo="ATP_area_window">
+							<Offset>
+								<AbsDimension x="-3" y="-7"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+					<Scripts>
+						<OnVerticalScroll>
+							FauxScrollFrame_OnVerticalScroll(self, offset, 12, ATP_arealist_Update);
+						</OnVerticalScroll>
+					</Scripts>
+				</ScrollFrame>
+				</Frames>
+				</Frame>
+				
+				<Frame name="ATP_zonesearch_window" inherits="ATP_ToolsWindow" hidden="true" enableMouse="true" movable="false" parent="ATP_window">
+				<Size>
+				<AbsDimension x="155" y="137"/>
+				</Size>
+				<Anchors>
+					<Anchor point="TOPLEFT" relativeTo="ATP_window" relativePoint="TOPLEFT">
+						<Offset>
+							<AbsDimension x="4" y="-16"/>
+						</Offset>
+					</Anchor>
+				</Anchors>					
+				
+				<Frames>					
+					<Button name="ATP_zonesearchlist_line1" inherits="ATP_zonesearchlist_line_template" id="1">
+						<Anchors>
+							<Anchor point="TOPLEFT" relativeTo="ATP_zonesearch_window">
+								<Offset>
+									<AbsDimension x="-5" y="-4"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</Button>
+					<Button name="ATP_zonesearchlist_line2" inherits="ATP_zonesearchlist_line_template" id="2">
+						<Anchors>
+							<Anchor point="TOPLEFT" relativeTo="ATP_zonesearchlist_line1" relativePoint="BOTTOMLEFT">
+								<Offset>
+									<AbsDimension x="0" y="0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</Button>
+					<Button name="ATP_zonesearchlist_line3" inherits="ATP_zonesearchlist_line_template" id="3">
+						<Anchors>
+							<Anchor point="TOPLEFT" relativeTo="ATP_zonesearchlist_line2" relativePoint="BOTTOMLEFT">
+								<Offset>
+									<AbsDimension x="0" y="0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</Button>
+					<Button name="ATP_zonesearchlist_line4" inherits="ATP_zonesearchlist_line_template" id="4">
+						<Anchors>
+							<Anchor point="TOPLEFT" relativeTo="ATP_zonesearchlist_line3" relativePoint="BOTTOMLEFT">
+								<Offset>
+									<AbsDimension x="0" y="0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</Button>
+					<Button name="ATP_zonesearchlist_line5" inherits="ATP_zonesearchlist_line_template" id="5">
+						<Anchors>
+							<Anchor point="TOPLEFT" relativeTo="ATP_zonesearchlist_line4" relativePoint="BOTTOMLEFT">
+								<Offset>
+									<AbsDimension x="0" y="0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</Button>
+					<Button name="ATP_zonesearchlist_line6" inherits="ATP_zonesearchlist_line_template" id="6">
+						<Anchors>
+							<Anchor point="TOPLEFT" relativeTo="ATP_zonesearchlist_line5" relativePoint="BOTTOMLEFT">
+								<Offset>
+									<AbsDimension x="0" y="0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</Button>
+					<Button name="ATP_zonesearchlist_line7" inherits="ATP_zonesearchlist_line_template" id="7">
+						<Anchors>
+							<Anchor point="TOPLEFT" relativeTo="ATP_zonesearchlist_line6" relativePoint="BOTTOMLEFT">
+								<Offset>
+									<AbsDimension x="0" y="0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</Button>
+					<Button name="ATP_zonesearchlist_line8" inherits="ATP_zonesearchlist_line_template" id="8">
+						<Anchors>
+							<Anchor point="TOPLEFT" relativeTo="ATP_zonesearchlist_line7" relativePoint="BOTTOMLEFT">
+								<Offset>
+									<AbsDimension x="0" y="0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</Button>
+					<Button name="ATP_zonesearchlist_line9" inherits="ATP_zonesearchlist_line_template" id="9">
+						<Anchors>
+							<Anchor point="TOPLEFT" relativeTo="ATP_zonesearchlist_line8" relativePoint="BOTTOMLEFT">
+								<Offset>
+									<AbsDimension x="0" y="0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</Button>				
+					
+					<ScrollFrame name="ATP_zonesearchlist_ScrollFrame" inherits="FauxScrollFrameTemplate">
+					<Size>
+						<AbsDimension x="130" y="124"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT" relativeTo="ATP_zonesearch_window">
+							<Offset>
+								<AbsDimension x="-3" y="-7"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+					<Scripts>
+						<OnVerticalScroll>
+							FauxScrollFrame_OnVerticalScroll(self, offset, 12, ATP_zonesearchlist_Update);
+						</OnVerticalScroll>
+					</Scripts>
+				</ScrollFrame>		
+			</Frames>
+		</Frame>
+		
+		<Frame name="ATP_areasearch_window" inherits="ATP_ToolsWindow" hidden="true" enableMouse="true" movable="false" parent="ATP_window">
+				<Size>
+				<AbsDimension x="245" y="137"/>
+				</Size>
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="ATP_zone_window" relativePoint="RIGHT">
+						<Offset>
+							<AbsDimension x="0" y="0"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				
+				<Frames>					
+					<Button name="ATP_areasearchlist_line1" inherits="ATP_areasearchlist_line_template" id="1">
+						<Anchors>
+							<Anchor point="TOPLEFT" relativeTo="ATP_areasearch_window">
+								<Offset>
+									<AbsDimension x="-5" y="-4"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</Button>
+					<Button name="ATP_areasearchlist_line2" inherits="ATP_areasearchlist_line_template" id="2">
+						<Anchors>
+							<Anchor point="TOPLEFT" relativeTo="ATP_areasearchlist_line1" relativePoint="BOTTOMLEFT">
+								<Offset>
+									<AbsDimension x="0" y="0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</Button>
+					<Button name="ATP_areasearchlist_line3" inherits="ATP_areasearchlist_line_template" id="3">
+						<Anchors>
+							<Anchor point="TOPLEFT" relativeTo="ATP_areasearchlist_line2" relativePoint="BOTTOMLEFT">
+								<Offset>
+									<AbsDimension x="0" y="0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</Button>
+					<Button name="ATP_areasearchlist_line4" inherits="ATP_areasearchlist_line_template" id="4">
+						<Anchors>
+							<Anchor point="TOPLEFT" relativeTo="ATP_areasearchlist_line3" relativePoint="BOTTOMLEFT">
+								<Offset>
+									<AbsDimension x="0" y="0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</Button>
+					<Button name="ATP_areasearchlist_line5" inherits="ATP_areasearchlist_line_template" id="5">
+						<Anchors>
+							<Anchor point="TOPLEFT" relativeTo="ATP_areasearchlist_line4" relativePoint="BOTTOMLEFT">
+								<Offset>
+									<AbsDimension x="0" y="0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</Button>
+					<Button name="ATP_areasearchlist_line6" inherits="ATP_areasearchlist_line_template" id="6">
+						<Anchors>
+							<Anchor point="TOPLEFT" relativeTo="ATP_areasearchlist_line5" relativePoint="BOTTOMLEFT">
+								<Offset>
+									<AbsDimension x="0" y="0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</Button>
+					<Button name="ATP_areasearchlist_line7" inherits="ATP_areasearchlist_line_template" id="7">
+						<Anchors>
+							<Anchor point="TOPLEFT" relativeTo="ATP_areasearchlist_line6" relativePoint="BOTTOMLEFT">
+								<Offset>
+									<AbsDimension x="0" y="0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</Button>
+					<Button name="ATP_areasearchlist_line8" inherits="ATP_areasearchlist_line_template" id="8">
+						<Anchors>
+							<Anchor point="TOPLEFT" relativeTo="ATP_areasearchlist_line7" relativePoint="BOTTOMLEFT">
+								<Offset>
+									<AbsDimension x="0" y="0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</Button>
+					<Button name="ATP_areasearchlist_line9" inherits="ATP_areasearchlist_line_template" id="9">
+						<Anchors>
+							<Anchor point="TOPLEFT" relativeTo="ATP_areasearchlist_line8" relativePoint="BOTTOMLEFT">
+								<Offset>
+									<AbsDimension x="0" y="0"/>
+								</Offset>
+							</Anchor>
+						</Anchors>
+					</Button>				
+					
+					<ScrollFrame name="ATP_areasearchlist_ScrollFrame" inherits="FauxScrollFrameTemplate">
+					<Size>
+						<AbsDimension x="220" y="124"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT" relativeTo="ATP_areasearch_window">
+							<Offset>
+								<AbsDimension x="-3" y="-7"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+					<Scripts>
+						<OnVerticalScroll>
+							FauxScrollFrame_OnVerticalScroll(self, offset, 12, ATP_areasearchlist_Update);
+						</OnVerticalScroll>
+					</Scripts>
+				</ScrollFrame>		
+			</Frames>
+		</Frame>
+
+		</Frames>
+	
+		
+	<Scripts>
+		<OnLoad>
+			ATP_window_OnLoad();
+		</OnLoad>
+		<OnDragStart>
+			ATP_window_OnDragStart();
+		</OnDragStart>
+		<OnDragStop>
+			ATP_window_OnDragStop();
+		</OnDragStop>
+		<OnMouseUp>
+			ATP_window_OnDragStop();
+		</OnMouseUp>
+	</Scripts>
+</Frame>
+</Ui>

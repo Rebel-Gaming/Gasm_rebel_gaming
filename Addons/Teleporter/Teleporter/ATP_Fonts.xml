@@ -1,0 +1,88 @@
+﻿<Ui xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:schemaLocation="http://www.blizzard.com/wow/ui/" xmlns="http://www.blizzard.com/wow/ui/">
+	<FontString name="ATP_YellowFont" virtual="true" font="Interface\AddOns\GMT\ATP_Title.ttf">
+		<FontHeight>
+			<AbsValue val="12" />
+		</FontHeight>
+		<Color r="0" g="1" b="1" />
+		<Shadow>
+			<Offset>
+				<AbsDimension x="2" y="-2" />
+			</Offset>
+			<Color r="0" g="0" b="0" />
+		</Shadow>
+	</FontString>
+	<FontString name="ATP_ButtonFont" virtual="true" font="Interface\AddOns\GMT\ATP_Title.ttf">
+		<Anchors>
+			<Anchor point="CENTER" relativePoint="CENTER">
+				<Offset>
+					<AbsDimension x="0" y="1" />
+				</Offset>
+			</Anchor>
+		</Anchors>
+		<FontHeight>
+			<AbsValue val="10" />
+		</FontHeight>
+		<Color r="1" g="1" b="1" />
+		<Shadow>
+			<Offset>
+				<AbsDimension x="2" y="-2" />
+			</Offset>
+			<Color r="0" g="0" b="0" />
+		</Shadow>
+	</FontString>
+	<FontString name="ATP_Font_sets" virtual="true" font="Interface\AddOns\GMT\ATP_font.ttf">
+		<Anchors>
+			<Anchor point="CENTER" relativePoint="CENTER">
+				<Offset>
+					<AbsDimension x="0" y="1" />
+				</Offset>
+			</Anchor>
+		</Anchors>
+		<FontHeight>
+			<AbsValue val="10" />
+		</FontHeight>
+		<Color r="1" g="1" b="1" />
+		<Shadow>
+			<Offset>
+				<AbsDimension x="1" y="-1" />
+			</Offset>
+			<Color r="0" g="0" b="0" />
+		</Shadow>
+	</FontString>
+	<FontString name="ATP_Font11" virtual="true" font="Interface\AddOns\GMT\ATP_font.ttf">
+		<FontHeight>
+			<AbsValue val="11" />
+		</FontHeight>
+		<Color r="1" g="1" b="1" />
+		<Shadow>
+			<Offset>
+				<AbsDimension x="1" y="-1" />
+			</Offset>
+			<Color r="0" g="0" b="0" />
+		</Shadow>
+	</FontString>
+	<FontString name="ATP_Font" virtual="true" font="Interface\AddOns\GMT\ATP_font.ttf">
+		<FontHeight>
+			<AbsValue val="12" />
+		</FontHeight>
+		<Color r="1" g="1" b="1" />
+		<Shadow>
+			<Offset>
+				<AbsDimension x="1" y="-1" />
+			</Offset>
+			<Color r="0" g="0" b="0" />
+		</Shadow>
+	</FontString>
+	<FontString name="ATP_TitleFont" virtual="true" font="Interface\AddOns\GMT\ATP_Title.ttf">
+		<FontHeight>
+			<AbsValue val="12" />
+		</FontHeight>
+		<Color r="1" g="1" b="1" />
+		<Shadow>
+			<Offset>
+				<AbsDimension x="2" y="-2" />
+			</Offset>
+			<Color r="0" g="0" b="0" />
+		</Shadow>
+	</FontString>
+</Ui>

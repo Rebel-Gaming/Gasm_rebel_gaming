@@ -1,0 +1,18 @@
+## Interface: 30300
+## Title: GMT
+## Author: Venge
+## Version: 1.0
+## Notes: Teleporter for Trinity Core.
+## eMail:
+## URL:
+## DefaultState: Enabled
+## LoadOnDemand: 0
+ATP_Fonts.xml
+ATP_Templates.xml
+ATP_Main.xml
+ATP_window.xml
+GMT.lua
+ATP_Window.lua
+ATP_Title.ttf
+ATP_teleport.lua
+ATP_font.ttf

@@ -1,0 +1,16 @@
+## Interface: 30300
+## Title: Teleporter
+## Author: Venge
+## Version: 1.0 Beta
+## Notes: Teleporter.
+## DefaultState: Enabled
+## LoadOnDemand: 0
+ATP_Fonts.xml
+ATP_Templates.xml
+ATP_Main.xml
+ATP_window.xml
+Teleporter.lua
+ATP_Window.lua
+ATP_Title.ttf
+ATP_teleport.lua
+ATP_font.ttf
