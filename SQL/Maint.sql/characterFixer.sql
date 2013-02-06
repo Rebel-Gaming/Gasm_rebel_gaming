@@ -262,9 +262,47 @@ SET `knownTitles` = (
 WHERE
 	guid = @newGuid;
 
-/*
-Delete from characters where guid = @oldGuid;
-Update characters 
-set guid = @oldGuid 
-where guid = @newGuid;
-*/
+/* Update all spells except racial, armor, weapon */
+
+
+REPLACE INTO playerspells
+SELECT
+	@newGuid,
+	`SpellID`
+FROM
+	playerspells
+WHERE
+	`SpellID` NOT IN (
+		SELECT
+			`Spell`
+		FROM
+			`frostmourne-world`.playercreateinfo_spell
+	)
+AND GUID = @oldGuid;
+
+
+
+/* Update items from old char to new */
+DELETE FROM item_instance
+WHERE
+owner_guid in (Select * from item_instance where owner_guid = @newGuid);
+
+update item_instance 
+set owner_guid = @newGuid
+where owner_guid = @oldGuid;
+
+
+
+/*  update Achives and skills  */
+
+UPDATE character_achievement
+set guid = @newGuid
+where guid = @ oldGuid;
+
+Update character_achievement_progress
+set guid = @newGuid
+where guid = @ oldGuid;
+
+UPDATE character_skills
+set guid = @newGuid
+where guid = @ oldGuid;
