@@ -1,0 +1,2 @@
+;IdColumnIndex=0
+35:3=4,5="The Assylum",22=4999,23="Somthing is terribly wrong here!",40="Something is Terribly Wrong here!",59=1,65=25
